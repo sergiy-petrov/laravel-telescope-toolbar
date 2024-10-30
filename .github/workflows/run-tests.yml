@@ -54,7 +54,7 @@ jobs:
         run: vendor/bin/dusk-updater detect --auto-update
 
       - name: Install Sqlite Database
-        run: vendor/orchestra/testbench-dusk/create-sqlite-db
+        run: vendor/bin/testbench workbench:install
 
       - name: Execute Unit Tests
         run: composer test
