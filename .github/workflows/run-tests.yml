@@ -6,7 +6,7 @@ on:
       - master
   pull_request:
     branches:
-      - *
+      - '*'
   schedule:
     - cron: '0 0 * * *'
 
@@ -21,7 +21,7 @@ jobs:
 
     strategy:
       matrix:
-        php: [8.2, 8.1, 8.0]
+        php: [8.4, 8.3, 8.2, 8.1, 8.0]
         laravel: ['9.*', '10.*', '11.*']
         dependency-version: [prefer-stable]
         exclude:
@@ -54,13 +54,13 @@ jobs:
         run: vendor/bin/dusk-updater detect --auto-update
 
       - name: Install Sqlite Database
-        run: vendor/orchestra/testbench-dusk/create-sqlite-db
+        run: vendor/bin/testbench workbench:install
 
       - name: Execute Unit Tests
         run: composer test
 
       - name: Upload Failed Screenshots
-        uses: actions/upload-artifact@v2-preview
+        uses: actions/upload-artifact@v4
         if: failure()
         with:
           name: screenshots
